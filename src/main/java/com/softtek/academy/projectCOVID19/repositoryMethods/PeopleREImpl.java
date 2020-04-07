@@ -2,8 +2,11 @@ package com.softtek.academy.projectCOVID19.repositoryMethods;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.softtek.academy.projectCOVID19.dataBaseEntities.Answers;
 
+@Repository
 public class PeopleREImpl implements PeopleRE{
 
 	@Override
