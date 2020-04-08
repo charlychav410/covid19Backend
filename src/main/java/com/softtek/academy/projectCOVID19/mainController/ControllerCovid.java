@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.softtek.academy.projectCOVID19.serviceMethods.DayRecordsCountService;
+import com.softtek.academy.projectCOVID19.serviceMethods.SelectAnswersService;
 import com.softtek.academy.projectCOVID19.serviceMethods.InsertAnswersService;
 import com.softtek.academy.projectCOVID19.serviceMethods.UpdateAnswersService;
 import com.softtek.academy.projectCOVID19.serviceMethods.UserLoginService;
@@ -26,7 +26,7 @@ public class ControllerCovid {
 	@Autowired
 	private InsertAnswersService insertAnswersService;
 	@Autowired
-	private DayRecordsCountService dayRecordsCountService;
+	private SelectAnswersService selectAnswersService;
 	
 	
 	@RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
@@ -42,8 +42,8 @@ public class ControllerCovid {
 	}
 	
 	
-	@RequestMapping(value = {"/dayRecords"}, method = RequestMethod.GET)
-	String dayRecords() {
+	@RequestMapping(value = {"/selectAnswers"}, method = RequestMethod.POST)
+	String selectAnswers() {
 		return "Servicio para obtener el número de ingresos por día del usuario";
 	}
 	
