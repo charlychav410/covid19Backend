@@ -1,13 +1,11 @@
 package com.softtek.academy.projectCOVID19.repositoryMethods;
 
 import java.util.List;
-
-import com.softtek.academy.projectCOVID19.dataBaseEntities.Answers;
-
+import java.util.Map;
 
 public interface AnswersRE {
-
-	List<Answers> selectAnswers(String parameter);
+	
+	List<Map<String, Object>> selectAnswers(String paramIs);
 	
 	String insertAnswers(String answers);
 	

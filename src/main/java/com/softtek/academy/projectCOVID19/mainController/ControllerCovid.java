@@ -2,12 +2,21 @@ package com.softtek.academy.projectCOVID19.mainController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.softtek.academy.projectCOVID19.serviceMethods.SelectAnswersService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.softtek.academy.projectCOVID19.common.Validations;
+import com.softtek.academy.projectCOVID19.dataTransferObjects.AnwersSelectDTO;
 import com.softtek.academy.projectCOVID19.serviceMethods.InsertAnswersService;
 import com.softtek.academy.projectCOVID19.serviceMethods.UpdateAnswersService;
 import com.softtek.academy.projectCOVID19.serviceMethods.UserLoginService;
@@ -27,6 +36,8 @@ public class ControllerCovid {
 	private InsertAnswersService insertAnswersService;
 	@Autowired
 	private SelectAnswersService selectAnswersService;
+	@Autowired
+	private Validations validations;
 	
 	
 	@RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
@@ -42,9 +53,21 @@ public class ControllerCovid {
 	}
 	
 	
-	@RequestMapping(value = {"/selectAnswers"}, method = RequestMethod.POST)
-	String selectAnswers() {
-		return "Servicio para obtener el número de ingresos por día del usuario";
+	@PostMapping(value = {"/selectAnswers"},
+			     consumes = MediaType.APPLICATION_JSON_VALUE,
+			     produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> selectAnswers(@RequestBody String is) {
+		AnwersSelectDTO dto = new AnwersSelectDTO();
+		JsonObject jObj = new Gson().fromJson(is, JsonObject.class);
+		
+		if(validations.validateIS(jObj.get("is").getAsString())) {
+			dto = selectAnswersService.selectA(is);
+		}else {
+			dto.setMessage("IS incorrecto");
+			return new ResponseEntity<>(dto,HttpStatus.CONFLICT);
+		}
+		
+		return new ResponseEntity<>(dto,HttpStatus.OK);
 	}
 	
 	
@@ -64,6 +87,7 @@ public class ControllerCovid {
 	String updateAnswers() {
 		return "Servicio para actualizar respuestas";
 	}
+	
 	
 
 }
