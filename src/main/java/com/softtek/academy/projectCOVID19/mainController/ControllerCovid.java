@@ -46,10 +46,9 @@ public class ControllerCovid {
 	}
 	
 	
-	@RequestMapping(value = {"/login"}, method = RequestMethod.GET)
-	String login() {
-		
-		return "Servicio para login de usuarios";
+	@RequestMapping(value = {"/login"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	Object login(@RequestParam("is") String is, @RequestParam("password") String password ) {
+		return userLoginService.userLogin(is, password);
 	}
 	
 	

@@ -1,16 +1,16 @@
 package com.softtek.academy.projectCOVID19.repositoryMethods;
 
-import java.util.List;
 
-import com.softtek.academy.projectCOVID19.dataBaseEntities.Answers;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
+import com.softtek.academy.projectCOVID19.dataBaseEntities.People;
 
-public interface PeopleRE {
+@Repository
+public interface PeopleRE extends CrudRepository<People,String>{
+
 	
-	List<Answers> selectAnswers(String parameter);
-	
-	String insertAnswers(String answers);
-	
-	String updateAnswers(String answers);
-
+	 @Query(value="select AES_DECRYPT(p.PASSWORD_P,'KEY') from PEOPLE p where p.IS = :is", nativeQuery = true)
+	  String findByIs(String is);
 }

@@ -12,11 +12,11 @@ import com.softtek.academy.projectCOVID19.functionalInterfaces.ParameterValidati
 public class Validations {
 
 	@Autowired
-	private Constants constantes;
+	private Constants constants;
 	
 	//Ejemplos de implementación de interfaces funcionales.
 	public boolean validateIS(String isParam) {
-		Pattern regexPattern = Pattern.compile(constantes.IS_REGEX);
+		Pattern regexPattern = Pattern.compile(constants.IS_REGEX);
 		
 		ParameterValidation parameterValidation = (parameter)->{
 			boolean result = false;
@@ -31,7 +31,35 @@ public class Validations {
 	}
 	
 	public boolean validateName(String nameParam) {
-		Pattern regexPattern = Pattern.compile(constantes.NAME_REGEX);
+		Pattern regexPattern = Pattern.compile(constants.NAME_REGEX);
+		ParameterValidation parameterValidation = (parameter)->{
+			boolean result = false;
+			if(parameter !=null && !parameter.isEmpty()) {
+				Matcher matcher = regexPattern.matcher(parameter);
+				result = matcher.find();
+			}
+			
+			return result;
+		};
+		return parameterValidation.validation(nameParam);
+	}
+	
+	public boolean validateEmail(String nameParam) {
+		Pattern regexPattern = Pattern.compile(constants.EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
+		ParameterValidation parameterValidation = (parameter)->{
+			boolean result = false;
+			if(parameter !=null && !parameter.isEmpty()) {
+				Matcher matcher = regexPattern.matcher(parameter);
+				result = matcher.find();
+			}
+			
+			return result;
+		};
+		return parameterValidation.validation(nameParam);
+	}
+	
+	public boolean validatePsw(String nameParam) {
+		Pattern regexPattern = Pattern.compile(constants.PSW_REGEX);
 		ParameterValidation parameterValidation = (parameter)->{
 			boolean result = false;
 			if(parameter !=null && !parameter.isEmpty()) {
