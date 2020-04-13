@@ -2,9 +2,10 @@ package com.softtek.academy.projectCOVID19.mainController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.softtek.academy.projectCOVID19.serviceMethods.DayRecordsCountService;
@@ -35,10 +36,9 @@ public class ControllerCovid {
 	}
 	
 	
-	@RequestMapping(value = {"/login"}, method = RequestMethod.GET)
-	String login() {
-		
-		return "Servicio para login de usuarios";
+	@RequestMapping(value = {"/login"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	Object login(@RequestParam("is") String is, @RequestParam("password") String password ) {
+		return userLoginService.userLogin(is, password);
 	}
 	
 	
