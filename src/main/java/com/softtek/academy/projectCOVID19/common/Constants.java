@@ -14,14 +14,10 @@ public class Constants {
 	public final String PSW_REGEX = "[a-zA-Z0-9]";
 	
 	/*
-	 * Coder-decoder constants
+	 * People constants
 	 */
-	public final String CODE_FORMAT = "UTF-8";
-	public final String SHA = "SHA-1";
-	public final String AES = "AES";
-	public final int KEY_LENGTH= 16;
-	public final String PADDING = "AES/ECB/PKCS5PADDING";
-	public final String SECURE_KEY = "KEY";
+
+	public final String SEPARATOR = ",";
 	
 	/*
 	 * Login constants

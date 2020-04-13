@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Component;
 
+import com.softtek.academy.projectCOVID19.common.Constants;
 import com.softtek.academy.projectCOVID19.dataBaseEntities.People;
 
 
@@ -22,6 +23,9 @@ public class PeopleREImpl {
 
 	@Autowired
 	private PeopleRE peopleRe;
+	
+	@Autowired 
+	private Constants constants;
 
 	
 	public String insertPeople() {
@@ -49,22 +53,22 @@ public class PeopleREImpl {
 	
 	public String findPeoplePsw(String is) {
 		String pasword = peopleRe.findByIs(is);
-		String psw = "";
-		String[] byteResult = pasword.split(",");
+		String psw = new String();
+		String[] byteResult = pasword.split(constants.SEPARATOR);
 		List<Integer> lista = new ArrayList<Integer>();
 		for(String iteration:byteResult) {
 			lista.add(Integer.parseInt(iteration.trim()));
 		}
 		try {
 			for(Integer iteration:lista) {
-				psw = psw + String.valueOf(iteration);
+				psw = psw+Character.toString((char)((int)iteration));
 			}
 			return psw;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 		
-		return null;
 	}
 	
 public List<People> findAllPeople(){
