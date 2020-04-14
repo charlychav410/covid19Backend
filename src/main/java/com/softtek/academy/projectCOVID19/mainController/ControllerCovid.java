@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,12 +56,13 @@ public class ControllerCovid {
 	@PostMapping(value = {"/selectAnswers"},
 			     consumes = MediaType.APPLICATION_JSON_VALUE,
 			     produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(readOnly = true)
 	public ResponseEntity<?> selectAnswers(@RequestBody String is) {
 		AnwersSelectDTO dto = new AnwersSelectDTO();
 		JsonObject jObj = new Gson().fromJson(is, JsonObject.class);
 		
 		if(validations.validateIS(jObj.get("is").getAsString())) {
-			dto = selectAnswersService.selectA(is);
+			dto = selectAnswersService.selectA(jObj.get("is").getAsString());
 		}else {
 			dto.setMessage("IS incorrecto");
 			return new ResponseEntity<>(dto,HttpStatus.CONFLICT);

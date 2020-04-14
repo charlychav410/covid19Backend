@@ -1,11 +1,11 @@
 package com.softtek.academy.projectCOVID19.serviceMethods;
 
-import java.util.List;
-import java.util.Map;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.softtek.academy.projectCOVID19.dataBaseEntities.Answers;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.AnwersSelectDTO;
 import com.softtek.academy.projectCOVID19.repositoryMethods.AnswersRE;
 
@@ -17,11 +17,21 @@ public class SelectAnswersServiceImpl implements SelectAnswersService{
 	
 	public AnwersSelectDTO selectA(String is) {
 		AnwersSelectDTO dto = new AnwersSelectDTO();
-		List<Map<String, Object>> mapLst = answersRep.selectAnswers(is);
+		Stream<Answers> answersStream = answersRep.findAllByIs(is);
 		
-		if(!mapLst.isEmpty()) {
-			System.out.println(mapLst.toString());
+//		answersStream.forEach((c)-> {
+//		      
+//		      System.out.printf(" %s", c.getQuestionDesc());
+//		    });
+		
+		if(answersStream.count()>0) {
+
 			dto.setMessage("Respuestas encontradas");
+			
+			
+			
+			
+			
 		}
 		else {
 			dto.setMessage("No se encontraron respuestas");

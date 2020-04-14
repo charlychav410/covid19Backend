@@ -14,7 +14,7 @@ public class Validations {
 	@Autowired
 	private Constants constants;
 	
-	//Ejemplos de implementación de interfaces funcionales.
+	//Validaciones que hacen uso de la interface funcional parameter validation.
 	public boolean validateIS(String isParam) {
 		Pattern regexPattern = Pattern.compile(constants.IS_REGEX);
 		
