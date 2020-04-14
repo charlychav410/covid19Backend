@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.softtek.academy.projectCOVID19.serviceMethods.SelectAnswersService;
@@ -18,6 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.softtek.academy.projectCOVID19.common.Validations;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.AnwersSelectDTO;
+import com.softtek.academy.projectCOVID19.dataTransferObjects.LoginRequestDTO;
 import com.softtek.academy.projectCOVID19.serviceMethods.InsertAnswersService;
 import com.softtek.academy.projectCOVID19.serviceMethods.UpdateAnswersService;
 import com.softtek.academy.projectCOVID19.serviceMethods.UserLoginService;
@@ -47,9 +47,11 @@ public class ControllerCovid {
 	}
 	
 	
-	@RequestMapping(value = {"/login"}, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	Object login(@RequestParam("is") String is, @RequestParam("password") String password ) {
-		return userLoginService.userLogin(is, password);
+	@PostMapping(value = {"/login"}, 
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	Object login(@RequestBody LoginRequestDTO loginRequestDTO ) {
+		return userLoginService.userLogin(loginRequestDTO.getIs(), loginRequestDTO.getPassword());
 	}
 	
 	
