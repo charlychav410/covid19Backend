@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity 
 @Table(name="ANSWERS")
 @IdClass(AnswerId.class)
@@ -32,6 +34,7 @@ public class Answers implements Serializable {
     @Basic(optional = false)
     @Column(name = "DATE_ANSWER", nullable = false)
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date   answerDate;
 	
 	@Id

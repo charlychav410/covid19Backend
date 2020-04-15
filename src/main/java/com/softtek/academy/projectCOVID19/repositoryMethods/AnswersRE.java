@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.QueryHints;
 import static org.hibernate.jpa.QueryHints.HINT_FETCH_SIZE;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.softtek.academy.projectCOVID19.dataBaseEntities.Answers;
 
