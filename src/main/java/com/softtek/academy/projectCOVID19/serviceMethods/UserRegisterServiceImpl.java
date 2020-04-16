@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.softtek.academy.projectCOVID19.common.Validations;
+import com.softtek.academy.projectCOVID19.dataTransferObjects.UserRegisterDTO;
 
 @Service
 public class UserRegisterServiceImpl implements UserRegisterService{
@@ -23,6 +24,13 @@ public class UserRegisterServiceImpl implements UserRegisterService{
 		}
 
 		return result;
+	}
+
+
+	@Override
+	public String userInsert(UserRegisterDTO person) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
