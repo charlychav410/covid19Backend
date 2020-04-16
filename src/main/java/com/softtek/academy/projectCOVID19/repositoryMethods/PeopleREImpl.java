@@ -24,9 +24,15 @@ public class PeopleREImpl {
 	private Constants constants;
 
 	
-	public String insertPeople() {
-		
-		return null;
+	public String insertPeople(People person) {
+		String response;
+		try {
+			peopleRe.save(person);
+			response = "1";
+		} catch (Exception e) {
+			response = "0";
+		}
+		return response;
 	}
 	
 	public String updatePeople() {
