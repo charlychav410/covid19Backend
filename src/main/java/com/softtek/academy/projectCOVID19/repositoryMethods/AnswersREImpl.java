@@ -14,7 +14,7 @@ public class AnswersREImpl {
 	private AnswersRE answersRe ;
 
 	public AnwersSelectDTO selectAnswers(String paramIs) {
-		LocalDate       localDate = LocalDate.now().minusDays(1);
+		LocalDate       localDate = LocalDate.now();
 		AnwersSelectDTO dto = new AnwersSelectDTO();
 		Stream<Answers> answerSelectedStream = answersRe.findAllByIs(paramIs);
 
