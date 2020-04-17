@@ -18,7 +18,7 @@ public class People implements Serializable{
 	private static final long serialVersionUID = 6955426189297132391L;
 
 	@Id
-	@Column(name = "IS")
+    @Column(name = "[IS]")
 	@Size(min = 4, max=5, message="Debe tener entre 4 y 5 caracteres")
 	private String is;
 	
@@ -38,11 +38,11 @@ public class People implements Serializable{
 	@Column(name = "EMAIL")
 	private String email;
 	
-	@Size(min = 1, max=30, message="Debe tener máximo 10 caracteres")
+	@Size(min = 1, max=10, message="Debe tener máximo 10 caracteres")
 	@Column(name = "PHONE")
 	private String phone;
 	
-	@Size(min = 1, max=30, message="Debe tener máximo 40 caracteres")
+	@Size(min = 1, max=40, message="Debe tener máximo 40 caracteres")
 	@Column(name = "PASSWORD_P")
 	private String userPassword;
 

@@ -3,6 +3,8 @@ package com.softtek.academy.projectCOVID19.repositoryMethods;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.softtek.academy.projectCOVID19.dataBaseEntities.Answers;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.AnwersSelectDTO;
@@ -14,7 +16,7 @@ public class AnswersREImpl {
 	private AnswersRE answersRe ;
 
 	public AnwersSelectDTO selectAnswers(String paramIs) {
-		LocalDate       localDate = LocalDate.now().minusDays(1);
+		LocalDate       localDate = LocalDate.now();
 		AnwersSelectDTO dto = new AnwersSelectDTO();
 		Stream<Answers> answerSelectedStream = answersRe.findAllByIs(paramIs);
 
@@ -37,6 +39,8 @@ public class AnswersREImpl {
 
 		return dto;
 	}
+	@Modifying
+	@Transactional
 	public String insertAns(Answers answer) {
 		answersRe.save(answer);
 		return null;

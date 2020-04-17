@@ -85,4 +85,16 @@ public class Validations {
 		return parameterValidation.validation(param);
 	}
 	
+	public boolean validatePhone(String nameParam) {
+        Pattern regexPattern = Pattern.compile(constants.PHONE_REGEX);
+        ParameterValidation parameterValidation = (parameter)->{
+            boolean result = false;
+            if(parameter !=null && !parameter.isEmpty()) {
+                Matcher matcher = regexPattern.matcher(parameter);
+                result = matcher.find();
+            }
+            return result;
+        };
+        return parameterValidation.validation(nameParam);
+    }
 }
