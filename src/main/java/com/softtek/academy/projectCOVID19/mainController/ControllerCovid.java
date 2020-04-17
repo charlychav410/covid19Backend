@@ -17,6 +17,7 @@ import com.softtek.academy.projectCOVID19.serviceMethods.SelectAnswersService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.softtek.academy.projectCOVID19.common.Validations;
+import com.softtek.academy.projectCOVID19.dataTransferObjects.AnswersInsertDTO;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.AnwersSelectDTO;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.LoginRequestDTO;
 import com.softtek.academy.projectCOVID19.serviceMethods.InsertAnswersService;
@@ -83,8 +84,9 @@ public class ControllerCovid {
 	
 	
 	@RequestMapping(value = {"/insertAnswers"}, method = RequestMethod.POST)
-	String insertAnswers() {
-		return "Servicio para insertar respuestas";
+	String insertAnswers(@RequestBody AnswersInsertDTO answersInsertDTO) {
+		
+		return insertAnswersService.insertAns(answersInsertDTO);
 	}
 	
 	

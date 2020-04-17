@@ -71,5 +71,18 @@ public class Validations {
 		};
 		return parameterValidation.validation(nameParam);
 	}
+	public boolean validateAns(String param) {
+		Pattern regexPattern = Pattern.compile(constants.PSW_REGEX);
+		ParameterValidation parameterValidation = (parameter)->{
+			boolean result = false;
+			if(parameter !=null && !parameter.isEmpty()) {
+				Matcher matcher = regexPattern.matcher(parameter);
+				result = matcher.find();
+			}
+			
+			return result;
+		};
+		return parameterValidation.validation(param);
+	}
 	
 }

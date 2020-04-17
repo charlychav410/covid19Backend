@@ -37,5 +37,10 @@ public class AnswersREImpl {
 
 		return dto;
 	}
+	public String insertAns(Answers answer) {
+		answersRe.save(answer);
+		return null;
+	}
+	
 
 }

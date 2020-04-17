@@ -24,4 +24,9 @@ public class Constants {
 	 */
 	public final String NON_VALID = "ERROR";
 	public final String VALID = "OK";
+	
+	/*
+	 * answer constants
+	 * */
+	public final String RESP_EMPTY="";
 }
