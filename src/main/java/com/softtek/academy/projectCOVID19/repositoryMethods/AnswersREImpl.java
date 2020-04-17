@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.softtek.academy.projectCOVID19.dataBaseEntities.Answers;
+import com.softtek.academy.projectCOVID19.dataBaseEntities.AnswersInsert;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.AnwersSelectDTO;
 
 
@@ -14,7 +15,8 @@ public class AnswersREImpl {
 	
 	@Autowired
 	private AnswersRE answersRe ;
-
+	@Autowired
+	private AnswersInsertRE answersInsertRE;
 	public AnwersSelectDTO selectAnswers(String paramIs) {
 		LocalDate       localDate = LocalDate.now();
 		AnwersSelectDTO dto = new AnwersSelectDTO();
@@ -41,9 +43,15 @@ public class AnswersREImpl {
 	}
 	@Modifying
 	@Transactional
-	public String insertAns(Answers answer) {
-		answersRe.save(answer);
-		return null;
+	public String insertAns(AnswersInsert answer) {
+		try {
+			answersInsertRE.save(answer);
+			return "1";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "0";
+		}
+		
 	}
 	
 

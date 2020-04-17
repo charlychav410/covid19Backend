@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.softtek.academy.projectCOVID19.common.Validations;
 import com.softtek.academy.projectCOVID19.dataBaseEntities.Answers;
+import com.softtek.academy.projectCOVID19.dataBaseEntities.AnswersInsert;
 import com.softtek.academy.projectCOVID19.dataBaseEntities.People;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.AnswersInsertDTO;
 import com.softtek.academy.projectCOVID19.repositoryMethods.AnswersREImpl;
@@ -17,7 +18,6 @@ public class InsertAnswersServiceImpl implements InsertAnswersService{
 	private AnswersREImpl answerREImpl;
 	@Override
 	public boolean validateParameters(String params) {
-		// TODO Auto-generated method stub
 		if(validations.validateAns(params)) {
 			return true;
 		}
@@ -25,7 +25,6 @@ public class InsertAnswersServiceImpl implements InsertAnswersService{
 	}
 	@Override
 	public boolean validateAnsw(String paramIs) {
-		answerREImpl.selectAnswers(paramIs);
 		if(validateParameters(paramIs)) {
 			return true;
 		}
@@ -34,27 +33,12 @@ public class InsertAnswersServiceImpl implements InsertAnswersService{
 
 	@Override
 	public String insertAns(AnswersInsertDTO ans) {
-		People pe=new People();
-		pe.setIs(ans.getIs());
-		Answers re=new Answers();
-		re.setAnswerDate(ans.getDate());
-		re.setQuestionDesc(ans.getQuestion());
-		re.setQuestionDesc(ans.getAnswer());
-		re.setPeople(pe);
-		
-		try {
-			if(validateAnsw(ans.getAnswer())) {
-				return "1";
-			}
-			else
-			return "0";
-		}
-		catch(Exception e) {
-			System.out.println(e.getMessage());
-			return "0";
-		}
-		
-		 
+		AnswersInsert answersInsert=new AnswersInsert();
+		answersInsert.setAnswerDate(ans.getDate());
+		answersInsert.setQuestionDesc(ans.getAnswer());
+		answersInsert.setIs(ans.getIs());
+		answersInsert.setQuestions(Integer.parseInt(ans.getQuestion()));
+		 return answerREImpl.insertAns(answersInsert);
 		
 	}
 	
