@@ -7,10 +7,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.softtek.academy.projectCOVID19.serviceMethods.SelectAnswersService;
@@ -19,6 +21,7 @@ import com.google.gson.JsonObject;
 import com.softtek.academy.projectCOVID19.common.Validations;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.AnswersInsertDTO;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.AnwersSelectDTO;
+import com.softtek.academy.projectCOVID19.dataTransferObjects.CollaboratorsDTO;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.LoginRequestDTO;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.UserRegisterDTO;
 import com.softtek.academy.projectCOVID19.serviceMethods.InsertAnswersService;
@@ -69,6 +72,21 @@ public class ControllerCovid {
 			return new ResponseEntity<>(dto, HttpStatus.CONFLICT);
 		}
 
+		return new ResponseEntity<>(dto, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = {"/selectReport" }, 
+			 consumes = MediaType.APPLICATION_JSON_VALUE, 
+			 produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(readOnly = true)
+	public ResponseEntity<?> selectReport(@RequestParam("filtroStatus") String status) {
+		CollaboratorsDTO dto = new CollaboratorsDTO();
+		
+		if(!status.equals("") ) {
+			dto = selectAnswersService.selectReportByStatus(status);
+		} else {
+			return new ResponseEntity<>(dto, HttpStatus.CONFLICT);
+		}
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 

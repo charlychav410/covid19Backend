@@ -1,10 +1,15 @@
 package com.softtek.academy.projectCOVID19.dataBaseEntities;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -45,6 +50,9 @@ public class People implements Serializable{
 	@Size(min = 1, max=40, message="Debe tener máximo 40 caracteres")
 	@Column(name = "PASSWORD_P")
 	private String userPassword;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "people", fetch = FetchType.LAZY)
+	private List<Answers> answersList;
 
 	public String getIs() {
 		return is;
@@ -102,14 +110,18 @@ public class People implements Serializable{
 		this.userPassword = userPassword;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((is == null) ? 0 : is.hashCode());
-		return result;
+	public List<Answers> getAnswersList() {
+		return answersList;
 	}
 
+	public void setAnswersList(List<Answers> answersList) {
+		this.answersList = answersList;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(answersList, email, is, lastName, lastNameM, name, phone, userPassword);
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -119,20 +131,31 @@ public class People implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		People other = (People) obj;
-		if (is == null) {
-			if (other.is != null)
-				return false;
-		} else if (!is.equals(other.is))
-			return false;
-		return true;
+		return Objects.equals(answersList, other.answersList) && Objects.equals(email, other.email)
+				&& Objects.equals(is, other.is) && Objects.equals(lastName, other.lastName)
+				&& Objects.equals(lastNameM, other.lastNameM) && Objects.equals(name, other.name)
+				&& Objects.equals(phone, other.phone) && Objects.equals(userPassword, other.userPassword);
 	}
-
 	@Override
 	public String toString() {
-		return "People [is=" + is + ", name=" + name + ", lastName=" + lastName + ", lastNameM=" + lastNameM
-				+ ", email=" + email + ", phone=" + phone + ", userPassword=" + userPassword + "]";
+		return new StringBuilder()
+		.append("People [is=")
+		.append(is)
+		.append(", name=")
+		.append(name)
+		.append(", lastName=")
+		.append(lastName)
+		.append(", lastNameM=")
+		.append(lastNameM)
+		.append(", email=")
+		.append(email)
+		.append(", phone=")
+		.append(phone)
+		.append(", userPassword=")
+		.append(userPassword)
+		.append(", answersList=")
+		.append(answersList)
+		.append("]")
+		.toString();
 	}
-	
-	
-	
 }

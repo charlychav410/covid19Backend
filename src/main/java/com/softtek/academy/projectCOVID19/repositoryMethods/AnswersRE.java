@@ -17,4 +17,6 @@ public interface AnswersRE extends CrudRepository<Answers,String> {
 	@Query(value="select * from ANSWERS a where a.FK_IS = :is", nativeQuery = true)
 	Stream<Answers> findAllByIs(String is);
 	
+	@Query(value="SELECT a FROM Answers a WHERE a.questions.idQuestion = 4")
+	Stream<Answers> findAllByAnswer4();
 }

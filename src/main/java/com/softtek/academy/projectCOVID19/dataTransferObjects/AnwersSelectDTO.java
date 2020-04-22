@@ -1,11 +1,11 @@
 package com.softtek.academy.projectCOVID19.dataTransferObjects;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class AnwersSelectDTO {
-	
-	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 2931699728946643245L;
+public class AnwersSelectDTO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private String answer1;
 	private String answer2;
 	private String answer3;

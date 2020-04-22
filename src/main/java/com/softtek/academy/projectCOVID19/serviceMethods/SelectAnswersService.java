@@ -1,6 +1,7 @@
 package com.softtek.academy.projectCOVID19.serviceMethods;
 
 import com.softtek.academy.projectCOVID19.dataTransferObjects.AnwersSelectDTO;
+import com.softtek.academy.projectCOVID19.dataTransferObjects.CollaboratorsDTO;
 
 /**
  * @author Bruno RGG
@@ -18,4 +19,6 @@ public interface SelectAnswersService {
 	 * @return: AnwersSelectDTO - Retorna dto con la información de las respuestas recuperadas de BD
 	 */
 	abstract AnwersSelectDTO selectA(String is);
+	
+	abstract CollaboratorsDTO selectReportByStatus(String status);
 }

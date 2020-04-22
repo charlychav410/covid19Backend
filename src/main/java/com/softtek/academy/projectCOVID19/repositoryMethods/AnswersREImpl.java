@@ -17,6 +17,7 @@ public class AnswersREImpl {
 	private AnswersRE answersRe ;
 	@Autowired
 	private AnswersInsertRE answersInsertRE;
+	
 	public AnwersSelectDTO selectAnswers(String paramIs) {
 		LocalDate       localDate = LocalDate.now();
 		AnwersSelectDTO dto = new AnwersSelectDTO();
@@ -41,6 +42,11 @@ public class AnswersREImpl {
 
 		return dto;
 	}
+	
+	public Stream<Answers> selectAnswers4(){
+		return answersRe.findAllByAnswer4();
+	}
+
 	@Modifying
 	@Transactional
 	public String insertAns(AnswersInsert answer) {
