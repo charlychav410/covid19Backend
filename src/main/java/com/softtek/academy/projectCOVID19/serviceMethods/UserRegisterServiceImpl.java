@@ -3,8 +3,10 @@ package com.softtek.academy.projectCOVID19.serviceMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
 import com.softtek.academy.projectCOVID19.common.Validations;
 import com.softtek.academy.projectCOVID19.dataBaseEntities.People;
+import com.softtek.academy.projectCOVID19.dataTransferObjects.MessageDTO;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.UserRegisterDTO;
 import com.softtek.academy.projectCOVID19.repositoryMethods.PeopleREImpl;
 
@@ -32,8 +34,9 @@ public class UserRegisterServiceImpl implements UserRegisterService{
 
 
 	@Override
-	public String userInsert(UserRegisterDTO userRegisterDTO) {
+	public Object userInsert(UserRegisterDTO userRegisterDTO) {
 		String response;
+		MessageDTO msg= new MessageDTO();
 		String is = userRegisterDTO.getIs();
 		String name = userRegisterDTO.getName();
 		String firstLastName = userRegisterDTO.getFirstLastName();
@@ -56,11 +59,14 @@ public class UserRegisterServiceImpl implements UserRegisterService{
 			person.setPhone(phone);
 			person.setUserPassword(password);
 
-			response = peopleREImpl.insertPeople(person);			
-		}else 
-			response = "0";
+			return peopleREImpl.insertPeople(person);	
+			
+		}else {
+			msg.setMsg("0");
+			return new Gson().toJson(msg);
+			
+		}
 		
-		return response;
 	}
 
 }
