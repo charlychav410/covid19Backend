@@ -69,6 +69,9 @@ public class PeopleREImpl {
 	public String findPeoplePsw(String is) {
 		String pasword = peopleRe.findByIs(is);
 		String psw = new String();
+		if(pasword==null) {
+			return pasword;
+		}else {
 		String[] byteResult = pasword.split(constants.SEPARATOR);
 		List<Integer> lista = new ArrayList<Integer>();
 		for (String iteration : byteResult) {
@@ -82,6 +85,7 @@ public class PeopleREImpl {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		}
 		}
 
 	}
