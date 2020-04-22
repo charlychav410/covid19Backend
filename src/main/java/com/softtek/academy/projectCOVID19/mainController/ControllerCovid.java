@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.softtek.academy.projectCOVID19.common.Validations;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.AnswersInsertDTO;
+import com.softtek.academy.projectCOVID19.dataTransferObjects.AnswersSaveDTO;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.AnwersSelectDTO;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.CollaboratorsDTO;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.LoginRequestDTO;
@@ -91,13 +92,13 @@ public class ControllerCovid {
 	}
 
 	@RequestMapping(value = { "/userRegister" }, method = RequestMethod.POST)
-	String userRegister(@RequestBody UserRegisterDTO userRegisterDTO) {
+	Object userRegister(@RequestBody UserRegisterDTO userRegisterDTO) {
 		return userRegisterService.userInsert(userRegisterDTO);
 	}
 	
 	
 	@RequestMapping(value = {"/insertAnswers"}, method = RequestMethod.POST)
-	String insertAnswers(@RequestBody AnswersInsertDTO answersInsertDTO) {
+	Object insertAnswers(@RequestBody AnswersSaveDTO answersInsertDTO) {
 		
 		return insertAnswersService.insertAns(answersInsertDTO);
 

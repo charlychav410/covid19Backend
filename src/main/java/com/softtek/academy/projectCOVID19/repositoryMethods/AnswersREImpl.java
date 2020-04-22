@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.Gson;
 import com.softtek.academy.projectCOVID19.dataBaseEntities.Answers;
 import com.softtek.academy.projectCOVID19.dataBaseEntities.AnswersInsert;
 import com.softtek.academy.projectCOVID19.dataTransferObjects.AnwersSelectDTO;
+import com.softtek.academy.projectCOVID19.dataTransferObjects.MessageDTO;
 
 
 public class AnswersREImpl {
@@ -17,12 +19,13 @@ public class AnswersREImpl {
 	private AnswersRE answersRe ;
 	@Autowired
 	private AnswersInsertRE answersInsertRE;
+	private MessageDTO msg = new MessageDTO();
+	private Gson gson = new Gson();
 	
 	public AnwersSelectDTO selectAnswers(String paramIs) {
 		LocalDate       localDate = LocalDate.now();
 		AnwersSelectDTO dto = new AnwersSelectDTO();
 		Stream<Answers> answerSelectedStream = answersRe.findAllByIs(paramIs);
-
 		answerSelectedStream
 		.filter(answer -> answer.getAnswerDate().toString().equals(localDate.toString()))
 		.forEach(answ -> {
@@ -49,13 +52,17 @@ public class AnswersREImpl {
 
 	@Modifying
 	@Transactional
-	public String insertAns(AnswersInsert answer) {
+	public Object insertAns(AnswersInsert answer) {
+		
 		try {
 			answersInsertRE.save(answer);
-			return "1";
+			msg.setMsg("1");
+			return new Gson().toJson(msg);
+			
 		} catch (Exception e) {
-			e.printStackTrace();
-			return "0";
+			msg.setMsg("0");
+			return new Gson().toJson(msg);
+			
 		}
 		
 	}

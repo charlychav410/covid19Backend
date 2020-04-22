@@ -6,6 +6,6 @@ public interface UserRegisterService {
 
 	boolean validateAllParameters(String params);
 	
-	String userInsert(UserRegisterDTO userRegisterDTO);
+	Object userInsert(UserRegisterDTO userRegisterDTO);
 	
 }

@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
 
+import com.google.gson.Gson;
 import com.softtek.academy.projectCOVID19.common.Constants;
 import com.softtek.academy.projectCOVID19.dataBaseEntities.People;
+import com.softtek.academy.projectCOVID19.dataTransferObjects.MessageDTO;
 
 @Configuration
 @EntityScan("com.softtek.academy.projectCOVID19.*")
@@ -20,20 +22,31 @@ public class PeopleREImpl {
 
 	@Autowired
 	private Constants constants;
-
-	public String insertPeople(People person) {
+	
+	private MessageDTO msg = new MessageDTO();
+	private Gson gson = new Gson();
+	
+	public Object insertPeople(People person) {
 		String response;
 		try {
 			if (!peopleRe.existsById(person.getIs())) {
 				peopleRe.insertUserQ(person.getIs(), person.getName(), person.getLastName(), person.getLastNameM(),
 						person.getEmail(), person.getPhone(), person.getUserPassword());
-				response = "1";
-			} else
-				response = "0";
+				msg.setMsg("1");
+			//	response =gson.toJson(msg);
+				return new Gson().toJson(msg);
+				
+			} else {
+				msg.setMsg("0");
+				//response =gson.toJson(msg);
+				return new Gson().toJson(msg);  
+			}
+				
 		} catch (Exception e) {
-			response = "0";
+			msg.setMsg("0");
+			//response =gson.toJson(msg);
+			return new Gson().toJson(msg);  
 		}
-		return response;
 	}
 
 	public String updatePeople() {
