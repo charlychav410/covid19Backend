@@ -77,7 +77,6 @@ public class ControllerCovid {
 	}
 	
 	@GetMapping(value = {"/selectReport" }, 
-			 consumes = MediaType.APPLICATION_JSON_VALUE, 
 			 produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(readOnly = true)
 	public ResponseEntity<?> selectReport(@RequestParam("filtroStatus") String status) {
